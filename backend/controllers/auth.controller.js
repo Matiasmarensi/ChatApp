@@ -1,4 +1,5 @@
 import User from "../model/user.model.js";
+import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
   try {
@@ -8,9 +9,14 @@ export const signup = async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     if (password !== confirmedPassword) return res.status(400).json({ error: "Passwords do not match" });
 
-    const user = await User.findOne({ username });
-    if (user) return res.status(400).json({ error: "Username already exists" });
+    //find existing user from username or email
+    const user = await User.findOne({ $or: [{ username }, { email }] });
+
+    if (user) return res.status(400).json({ error: "Username or email already exists" });
     else {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
       const boysPic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
       const girlPic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
@@ -18,7 +24,7 @@ export const signup = async (req, res) => {
         fullname,
         username,
         email,
-        password,
+        password: hashedPassword,
         gender,
         profilePic: gender === "male" ? boysPic : girlPic,
       });
