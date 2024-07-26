@@ -38,9 +38,29 @@ export const signup = async (req, res) => {
 };
 
 export const login = (req, res) => {
-  res.send("Login");
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) return res.status(400).json({ error: "All fields are required" });
+
+    User.findOne({ username }).then((user) => {
+      if (!user) return res.status(400).json({ error: "Invalid credentials" });
+      bcrypt.compare(password, user?.password).then((isMatch) => {
+        if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
+        generateToken(user._id, res);
+        res.status(200).json({ message: "Login successful", user });
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const logout = (req, res) => {
-  console.log(req.body);
+  try {
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
 };
