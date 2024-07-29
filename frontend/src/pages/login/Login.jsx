@@ -7,6 +7,26 @@ const Login = () => {
         <h1 className="text-3xl font-semibold text-center text-gray-200">
           Login<span className="text-sky-500"> ChatApp</span>
         </h1>
+        <form>
+          <div>
+            <label className="label p-2">
+              <span className="text-base label-text">Username</span>
+            </label>
+            <input type="text" placeholder="Enter username" className="w-full input input-bordered h-10" />
+          </div>
+          <div>
+            <label className="label p-2">
+              <span className="text-base label-text">Password</span>
+            </label>
+            <input type="password" placeholder="Enter password" className="w-full input input-bordered h-10" />
+          </div>
+          <a href="#" className="link link-hover text-sm text-cyan-100 inline-block">
+            Don´t have an account? Register
+          </a>
+          <div className="flex justify-center mt-4">
+            <button className="btn btn-sm btn-block btn-primary ">Login</button>
+          </div>
+        </form>
       </div>
     </div>
   );
