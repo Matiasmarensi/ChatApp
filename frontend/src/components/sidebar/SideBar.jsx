@@ -2,7 +2,6 @@ import React from "react";
 import SearchInput from "./SearchInput";
 import Conversations from "./Conversations.jsx";
 import LogoutButton from "./LogoutButton.jsx";
-import { TbLogout2 } from "react-icons/tb";
 
 const SideBar = () => {
   return (
