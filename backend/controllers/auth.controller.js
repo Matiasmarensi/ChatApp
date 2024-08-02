@@ -3,14 +3,15 @@ import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateJwt.js";
 export const signup = async (req, res) => {
   try {
-    const { fullname, username, email, password, confirmedPassword, gender } = req.body;
+    const { fullname, username, password, confirmedPassword, gender } = req.body;
+    console.log(fullname, username, password, confirmedPassword, gender);
 
-    if (!fullname || !username || !email || !password || !confirmedPassword || !gender)
-      return res.status(400).json({ error: "All fields are required" });
+    if (!fullname || !username || !password || !confirmedPassword || !gender)
+      return res.status(400).json({ error: "All fields are required back end" });
     if (password !== confirmedPassword) return res.status(400).json({ error: "Passwords do not match" });
 
     //find existing user from username or email
-    const user = await User.findOne({ $or: [{ username }, { email }] });
+    const user = await User.findOne({ $or: [{ username }] });
 
     if (user) return res.status(400).json({ error: "Username or email already exists" });
     else {
@@ -23,7 +24,7 @@ export const signup = async (req, res) => {
       const newUser = new User({
         fullname,
         username,
-        email,
+
         password: hashedPassword,
         gender,
         profilePic: gender === "male" ? boysPic : girlPic,
@@ -61,6 +62,6 @@ export const logout = (req, res) => {
     res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({ error: "Something went wrong backend" });
   }
 };
