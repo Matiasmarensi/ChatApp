@@ -1,5 +1,6 @@
 import React from "react";
 import Messages from "./Messages";
+import MessageInput from "./MessageInput";
 
 const MessagesContainer = () => {
   return (
@@ -10,6 +11,7 @@ const MessagesContainer = () => {
           <span className="text-gray-300 font-bold">Juan</span>
         </div>
         <Messages />
+        <MessageInput />
       </>
     </div>
   );
