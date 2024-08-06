@@ -4,7 +4,6 @@ import generateToken from "../utils/generateJwt.js";
 export const signup = async (req, res) => {
   try {
     const { fullname, username, password, confirmedPassword, gender } = req.body;
-    console.log(fullname, username, password, confirmedPassword, gender);
 
     if (!fullname || !username || !password || !confirmedPassword || !gender)
       return res.status(400).json({ error: "All fields are required back end" });
@@ -38,24 +37,31 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = (req, res) => {
+export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    if (!username || !password) return res.status(400).json({ error: "All fields are required" });
+    console.log(username, password);
+    if (!username || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
 
-    User.findOne({ username }).then((user) => {
-      if (!user) return res.status(400).json({ error: "Invalid credentials" });
-      bcrypt.compare(password, user?.password).then((isMatch) => {
-        if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
-        generateToken(user._id, res);
-        res.status(200).json({ message: "Login successful", user });
-      });
-    });
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    generateToken(user._id, res);
+    return res.status(200).json({ message: "Login successful", user });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 export const logout = (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 0 });

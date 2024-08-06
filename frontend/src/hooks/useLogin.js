@@ -8,6 +8,8 @@ const useLogin = () => {
 
   const login = async (username, password) => {
     setLoading(true);
+    const success = handleInputsErrors(username, password);
+    if (!success) return;
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -19,7 +21,10 @@ const useLogin = () => {
           password: password,
         }),
       });
-      console.log(response);
+      if (!response.ok) {
+        toast.error("Invalid credentials");
+      }
+
       const data = await response.json();
       if (data.error) {
         throw new Error(data.error.message);
@@ -28,7 +33,6 @@ const useLogin = () => {
       setAuthUser(data);
       setLoading(false);
     } catch (error) {
-      toast.error(error.message);
       setLoading(false);
       console.log(error);
     } finally {
@@ -42,3 +46,12 @@ const useLogin = () => {
 };
 
 export default useLogin;
+
+function handleInputsErrors(username, password) {
+  if (!username || !password) {
+    toast.error("Please fill in all fields");
+    return false;
+  }
+
+  return true;
+}
