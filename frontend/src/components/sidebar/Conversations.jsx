@@ -11,7 +11,9 @@ const Conversations = () => {
       {loading ? (
         <div className="loading loading-spinner"></div>
       ) : (
-        conversations.map((conversation) => <Conversation key={conversation._id} conversation={conversation} />)
+        conversations.map((conversation) => (
+          <Conversation key={conversation._id} conversation={conversation} lastIdx={conversations.length - 1} />
+        ))
       )}
     </div>
   );

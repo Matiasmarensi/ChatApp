@@ -1,12 +1,12 @@
 import React from "react";
 
-const Conversation = ({ conversation }) => {
+const Conversation = ({ conversation, lastIdx }) => {
   return (
     <>
       <div className="flex gap-3 items-center hover:bg-sky-200 rounded px-2 p-y cursor-pointer">
         <div className="avatar online">
           <div className="w-12 rounded-full">
-            <img src="" alt="avatar" />
+            <img src={conversation.profilePic} alt="avatar" />
           </div>
         </div>
         <div className=" flex flex-col  flex-1">
@@ -16,7 +16,7 @@ const Conversation = ({ conversation }) => {
           </div>
         </div>
       </div>
-      <div className="divider my-0 py-0 h-1"></div>
+      {!lastIdx && <div className="divider my-0 py-0 h-1" />}
     </>
   );
 };
