@@ -4,7 +4,7 @@ import useConversation from "../zustand/useConversation";
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
 
-  const { message, setMessages, selectedConversation } = useConversation();
+  const { messages, setMessages, selectedConversation } = useConversation();
   const sendMessage = async (message) => {
     setLoading(true);
     try {
@@ -19,7 +19,7 @@ const useSendMessage = () => {
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      setMessages([...message, data]);
+      setMessages([...messages, data]);
     } catch (error) {
       toast.error(error.message);
     } finally {
