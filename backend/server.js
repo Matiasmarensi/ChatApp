@@ -6,8 +6,8 @@ import messageRoute from "./routes/message.routes.js";
 import conectToMongodb from "./db/connectDb.js";
 import usersRoute from "./routes/users.routes.js";
 import cors from "cors";
+import { app } from "./socket/socket.js";
 
-const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 app.use(
