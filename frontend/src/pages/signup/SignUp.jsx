@@ -11,7 +11,6 @@ const SignUp = () => {
     confirmedPassword: "",
     gender: "",
   });
-  console.log;
 
   const { signup, loading } = useSignup();
 

@@ -48,7 +48,7 @@ export const getMessages = async (req, res) => {
     }
 
     const messages = conversation.messages;
-    console.log(messages);
+
     res.status(200).json(messages);
   } catch (error) {
     console.log(error.message);

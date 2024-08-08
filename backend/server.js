@@ -6,10 +6,10 @@ import messageRoute from "./routes/message.routes.js";
 import conectToMongodb from "./db/connectDb.js";
 import usersRoute from "./routes/users.routes.js";
 import cors from "cors";
-import { app } from "./socket/socket.js";
+import { app, server } from "./socket/socket.js";
 
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.use(
   cors({
     origin: "*",
@@ -22,7 +22,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/message", messageRoute);
 app.use("/api/users", usersRoute);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   conectToMongodb();
 
   console.log(`Server is running on port ${PORT}`);
