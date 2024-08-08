@@ -10,7 +10,8 @@ const Message = ({ message }) => {
   const fromMe = message.senderId === authUser.user._id;
   const chatClassName = fromMe ? "chat-end" : "chat-start";
 
-  const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+  const profilePic = fromMe ? authUser.user.profilePic : selectedConversation?.profilePic;
+
   const bubbleBgColor = fromMe ? "bg-blue-500" : "bg-gray-500";
 
   const formattedTime = new Date(message.createdAt).toLocaleTimeString();
