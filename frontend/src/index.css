@@ -8,7 +8,7 @@ html, body {
   padding: 0;
 }
 
-body {
+html {
   background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("../public/ocean.jpg");
   background-repeat: no-repeat;
   background-size: cover;
