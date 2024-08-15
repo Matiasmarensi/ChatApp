@@ -6,13 +6,14 @@ const Message = ({ message }) => {
   const { selectedConversation } = useConversation();
   if (!message || !authUser.user || !selectedConversation) return null;
   const fromMe = message.senderId === authUser.user._id;
+
   const formattedTime = message.createdAt ? new Date(message.createdAt).toLocaleTimeString() : "Now";
   const chatClassName = fromMe ? "chat-end" : "chat-start";
   const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
   const bubbleBgColor = fromMe ? "bg-blue-500" : "";
 
   const shakeClass = message.shouldShake ? "shake" : "";
-  console.log("message:");
+
   return (
     <div className={`chat ${chatClassName}`}>
       <div className="chat-image avatar">
