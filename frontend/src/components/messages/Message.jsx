@@ -4,17 +4,14 @@ import useConversation from "../../zustand/useConversation";
 const Message = ({ message }) => {
   const { authUser } = useAuthContext();
   const { selectedConversation } = useConversation();
-
-  if (!authUser) return null;
-
+  if (!message || !authUser.user || !selectedConversation) return null;
   const fromMe = message.senderId === authUser.user._id;
-  const chatClassName = fromMe ? "chat-end" : "chat-start";
-
-  const profilePic = fromMe ? authUser.user.profilePic : selectedConversation?.profilePic;
-
-  const bubbleBgColor = fromMe ? "bg-blue-500" : "bg-gray-500";
-  const shakeClass = message.shouldShake ? "shake" : "";
   const formattedTime = message.createdAt ? new Date(message.createdAt).toLocaleTimeString() : "Now";
+  const chatClassName = fromMe ? "chat-end" : "chat-start";
+  const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+  const bubbleBgColor = fromMe ? "bg-blue-500" : "";
+
+  const shakeClass = message.shouldShake ? "shake" : "";
 
   return (
     <div className={`chat ${chatClassName}`}>
@@ -28,5 +25,4 @@ const Message = ({ message }) => {
     </div>
   );
 };
-
 export default Message;
