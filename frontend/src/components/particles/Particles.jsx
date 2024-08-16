@@ -71,7 +71,7 @@ const ParticlesComponent = (props) => {
           density: {
             enable: true,
           },
-          value: 500, // Incrementa la cantidad de partículas
+          value: 200, // Incrementa la cantidad de partículas
         },
         opacity: {
           value: 1.0,
