@@ -9,7 +9,8 @@ const Message = ({ message }) => {
 
   const formattedTime = message.createdAt ? new Date(message.createdAt).toLocaleTimeString() : "Now";
   const chatClassName = fromMe ? "chat-end" : "chat-start";
-  const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+  const profilePic = fromMe ? authUser?.user?.profilePic : selectedConversation?.profilePic;
+
   const bubbleBgColor = fromMe ? "bg-blue-500" : "";
 
   const shakeClass = message.shouldShake ? "shake" : "";

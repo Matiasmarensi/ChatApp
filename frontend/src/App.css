@@ -6,7 +6,12 @@
   padding: 2rem;
   text-align: center;
 }
-
+.particles canvas {
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
 .logo {
   height: 6em;
   padding: 1.5em;

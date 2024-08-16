@@ -19,7 +19,7 @@ const Messages = () => {
   }, [messages]);
 
   return (
-    <div className="px-4 flex-1 overflow-auto">
+    <div className="px-4 flex-1 overflow-auto bg-slate-600 opacity-0.4">
       {!loading &&
         messages.length > 0 &&
         messages.map((message) => {
